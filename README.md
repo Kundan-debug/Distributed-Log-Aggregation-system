@@ -20,7 +20,9 @@ The system also evaluates performance using throughput measurement and implement
 - Backpressure Handling – Server queue limit prevents overload
 
 ## System Architecture
-![Architecture](Architecture/Architecture.png)
+<p align="center">
+  <img src="Architecture/Architecture.png" width="50%">
+</p>
 
 Clients generate logs and send them to the server through the network using UDP sockets.  
 The aggregation server receives and processes logs in real time.
