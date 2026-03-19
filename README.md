@@ -7,9 +7,9 @@ Students:
 - Anusri Sharma – PES1UG25CS803
 
 ## Project Overview
-This project implements a distributed log aggregation system using UDP socket programming for fast, connectionless communication suitable for real-time log transmission. Multiple clients generate log messages and send them over the network to a centralized aggregation server. The server receives logs, timestamps them upon arrival and orders them accordingly, and processes them in real time while supporting multiple concurrent clients.
+This project implements a distributed log aggregation system using UDP socket programming for fast, connectionless communication suitable for real-time log transmission. Multiple clients generate log messages and send them over the network to a centralized aggregation server. The server receives logs, timestamps them upon arrival and orders them accordingly, and processes them in real time while supporting multiple concurrent clients, ensuring scalability.
 
-The system also evaluates performance using throughput measurement (logs per second) and implements backpressure handling by limiting the log queue size to prevent memory overload. Since UDP is unreliable, some log messages may be lost or received out of order.
+The system evaluates performance using throughput measurement (logs per second) and incorporates basic optimization through backpressure handling by limiting the log queue size to prevent memory overload. It also considers failure scenarios inherent to UDP communication, such as packet loss, out-of-order delivery, and potential decryption errors. While the design prioritizes low latency and simplicity, it provides a foundation for further enhancements in reliability and efficiency.
 
 ## Features
 - UDP Socket Communication – Low-level socket implementation
