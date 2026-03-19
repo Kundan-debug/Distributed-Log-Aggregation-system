@@ -142,7 +142,7 @@ Logs are decrypted at the server before processing and display.
 ## Technologies Used
 Language: Python  
 Networking: UDP Sockets  
-Libraries: socket, time, cryptography  
+Libraries: socket, time, random, cryptography  
 Cryptography: Fernet (symmetric encryption)  
 Operating Systems: Mac (Server), Windows/Ubuntu (Clients)
 
