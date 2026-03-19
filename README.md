@@ -156,13 +156,9 @@ Distributed-Log-Aggregation-System/
 ├── Client/
 │   └── Client.py
 ├── Output/
-│   ├── Backpressure.png
-│   ├── Client.jpeg
 │   ├── Client_1.jpeg
 │   ├── Client_2.jpeg
-│   ├── Server.png
-│   ├── Server_1_2.png
-│   └── Throughput.png
+│   └── Server.png
 ├── Server/
 │   └── Server.py
 ├── .gitignore
