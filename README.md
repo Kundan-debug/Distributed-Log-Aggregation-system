@@ -35,8 +35,8 @@ Client sends log message:
 Example:  
 ```1717578803.7720332 | WINDOWS_CLIENT | INFO | Log message 74```  
 
-Each log message is sent as a UDP datagram from the client to the server without establishing a connection.  
-Server receives and processes logs while maintaining time ordering.
+Each log message is sent as a UDP datagram from the client to the server without establishing a connection, and without any guarantee of delivery or ordering.  
+Server receives and processes logs while maintaining time ordering based on timestamps generated at the server.
 
 ## Installation & Setup
 Prerequisites:
