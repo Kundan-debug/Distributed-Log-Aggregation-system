@@ -135,8 +135,9 @@ Example server output:
 Throughput: 25 logs/sec
 ```
 
-The output displays the client IP, port, log details, and real-time throughput, with logs ordered based on server timestamps.  
-Each entry represents a log received as a UDP datagram from a client.
+The output displays the client IP, port, log details, and real-time throughput, with logs ordered based on timestamps generated at the server upon reception.  
+Each entry represents a log received as a UDP datagram from a client.  
+Logs are decrypted at the server before processing and display.
 
 ## Technologies Used
 Language: Python  
