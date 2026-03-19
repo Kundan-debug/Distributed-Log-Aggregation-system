@@ -20,6 +20,7 @@ The system evaluates performance using throughput measurement (logs per second) 
 - Time Ordering – Logs are ordered using timestamps generated at the server upon reception  
 - Throughput Evaluation – Server measures logs received per second  
 - Backpressure Handling – Server queue limit prevents overload
+- Basic Failure Handling – Decryption errors are handled and timeout is used to avoid blocking
 
 ## System Architecture
 <p align="center">
@@ -39,7 +40,7 @@ Example:
 ```1717578803.7720332 | WINDOWS_CLIENT | INFO | Log message 74```  
 
 Each log message is sent as a UDP datagram from the client to the server without establishing a connection, and without any guarantee of delivery or ordering.  
-Server receives and processes logs while maintaining time ordering based on timestamps generated at the server.  
+Server receives and processes logs while maintaining time ordering based on timestamps generated at the server upon reception.  
 No retransmission or acknowledgment mechanism is implemented, making the system lightweight but unreliable.
 
 ## Installation & Setup
