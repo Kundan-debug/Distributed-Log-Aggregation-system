@@ -45,9 +45,9 @@ Server receives and processes logs while maintaining time ordering based on time
 Prerequisites:
 - Python 3
 - Devices connected to the same network
-- Cryptography library installed
+- Cryptography library (Fernet-based encryption) installed
 
-Both client and server must be connected to the same local network for communication.
+Both client and server must be connected to the same local network for UDP communication.
 
 Setup Steps:
 Clone the repository
@@ -63,8 +63,17 @@ Install required libraries
 ```bash
 pip install cryptography
 ```
-The ```cryptography``` library is used to encrypt logs at the client and decrypt them at the server.
+This library is used for encrypting logs at the client and decrypting them at the server.
 
+Generate a secret key (run once)
+```bash
+python3 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key())"
+```
+Update the secret key in client.py and server.py  
+The same key must be used in both client and server for successful encryption and decryption.
+```python
+key = b'PASTE_YOUR_KEY_HERE'
+```
 Find server IP address (Mac)
 ```bash
 ipconfig getifaddr en0
