@@ -7,15 +7,16 @@ Students:
 - Anusri Sharma – PES1UG25CS803
 
 ## Project Overview
-This project implements a distributed log aggregation system using UDP socket programming. Multiple clients generate log messages and send them over the network to a centralized aggregation server. The server receives, orders, and processes logs in real time while supporting multiple concurrent clients.
+This project implements a distributed log aggregation system using UDP socket programming for fast, connectionless communication suitable for real-time log transmission. Multiple clients generate log messages and send them over the network to a centralized aggregation server. The server receives logs, timestamps and orders them based on arrival time, and processes them in real time while supporting multiple concurrent clients.
 
-The system also evaluates performance using throughput measurement and implements basic backpressure handling to prevent overload.
+The system also evaluates performance using throughput measurement (logs per second) and implements backpressure handling by limiting the log queue size to prevent memory overload. Since UDP is unreliable, some log messages may be lost or received out of order.
 
 ## Features
-- UDP Socket Communication – Low-level socket implementation  
+- UDP Socket Communication – Low-level socket implementation
+- Connectionless Communication – No handshake required between client and server  
 - Real-Time Log Streaming – Clients continuously send log data  
 - Multi-Client Support – Multiple clients can send logs simultaneously  
-- Time Ordering – Logs are ordered using timestamps  
+- Time Ordering – Logs are ordered using timestamps generated at the server upon reception  
 - Throughput Evaluation – Server measures logs received per second  
 - Backpressure Handling – Server queue limit prevents overload
 
@@ -34,6 +35,7 @@ Client sends log message:
 Example:  
 ```1717578803.7720332 | WINDOWS_CLIENT | INFO | Log message 74```  
 
+Each log message is sent as a UDP datagram from the client to the server without establishing a connection.  
 Server receives and processes logs while maintaining time ordering.
 
 ## Installation & Setup
@@ -89,6 +91,7 @@ The server will receive logs from all clients simultaneously.
 The server measures throughput as:  
 ```Throughput: XX logs/sec```  
 
+Throughput indicates how many logs the server can process per second under continuous load.  
 This metric is used to evaluate system performance under continuous log transmission.
 
 ## Backpressure Handling
@@ -96,7 +99,7 @@ To prevent memory overload:
 - Server log queue is limited to 100 logs
 - Old logs are automatically removed when the limit is exceeded
 
-This ensures stable performance even under heavy log traffic.
+This ensures stable performance even under heavy log traffic. This mechanism prevents unbounded memory growth during high log traffic.
 
 ## Sample Output
 Example server output:
@@ -105,6 +108,8 @@ Example server output:
 [('10.30.203.57', 56672)] WINDOWS_CLIENT | INFO | Log message 76
 Throughput: 25 logs/sec
 ```
+
+The output displays the client IP, port, log details, and real-time throughput.
 
 ## Technologies Used
 Language: Python  
@@ -135,11 +140,12 @@ Distributed-Log-Aggregation-System/
 ```
 
 ## Future Improvements
-Secure communication using SSL/TLS  
+Secure communication using DTLS (Datagram Transport Layer Security)  
 Log storage in database  
 Log filtering and search functionality  
 Web dashboard for monitoring  
-Visualization of log statistics
+Visualization of log statistics  
+Reliable delivery mechanisms (acknowledgment and retransmission)
 
 ## License
 This project is created for educational purposes as part of the Computer Networks mini project.
