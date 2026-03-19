@@ -13,7 +13,8 @@ The system also evaluates performance using throughput measurement (logs per sec
 
 ## Features
 - UDP Socket Communication – Low-level socket implementation
-- Connectionless Communication – No handshake required between client and server  
+- Connectionless Communication – No handshake required between client and server
+- Cryptographic Security – Logs can be encrypted before transmission and decrypted at the server  
 - Real-Time Log Streaming – Clients continuously send log data  
 - Multi-Client Support – Multiple clients can send logs simultaneously  
 - Time Ordering – Logs are ordered using timestamps generated at the server upon reception  
@@ -27,6 +28,8 @@ The system also evaluates performance using throughput measurement (logs per sec
 
 Clients generate logs and send them to the server through the network using UDP sockets.  
 The aggregation server receives and processes logs in real time.
+
+Logs can be encrypted at the client and decrypted at the server to ensure secure transmission.
 
 ## Communication Model
 Client sends log message:  
@@ -42,6 +45,10 @@ Server receives and processes logs while maintaining time ordering based on time
 Prerequisites:
 - Python 3
 - Devices connected to the same network
+- Cryptography library installed
+
+Both client and server must be connected to the same local network for communication.
+
 Setup Steps:
 Clone the repository
 ```bash
@@ -52,6 +59,12 @@ Ensure Python is installed
 ```bash
 python3 --version
 ```
+Install required libraries
+```bash
+pip install cryptography
+```
+The ```cryptography``` library is used to encrypt logs at the client and decrypt them at the server.
+
 Find server IP address (Mac)
 ```bash
 ipconfig getifaddr en0
@@ -60,6 +73,7 @@ Update the server IP in client.py
 ```python
 SERVER_IP = "YOUR_SERVER_IP"
 ```
+Ensure the client uses the correct server IP address; otherwise, logs will not be received.
 
 ## Usage
 Start the Server:
@@ -70,22 +84,24 @@ Expected output
 
 ```Server listening...```  
 
+Ensure the server is running before starting any clients.
+
 Start the Client:
 ```bash
-python client.py
+python3 client.py
 ```
-Clients will start sending log messages continuously.  
+Clients will start sending log messages continuously to the server.  
 
 Multi-Client Execution:  
-Run multiple clients on different systems or terminals.  
+Run multiple clients on different systems or multiple terminals on the same system.  
 
 Example:
 ```bash
-python client.py
-python client.py
-python client.py
+python3 client.py
+python3 client.py
+python3 client.py
 ```
-The server will receive logs from all clients simultaneously.
+The server will receive and process logs from all clients simultaneously in real time.
 
 ## Performance Evaluation
 The server measures throughput as:  
@@ -109,7 +125,8 @@ Example server output:
 Throughput: 25 logs/sec
 ```
 
-The output displays the client IP, port, log details, and real-time throughput.
+The output displays the client IP, port, log details, and real-time throughput, with logs ordered based on server timestamps.  
+Each entry represents a log received as a UDP datagram from a client.
 
 ## Technologies Used
 Language: Python  
