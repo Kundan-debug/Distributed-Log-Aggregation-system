@@ -7,14 +7,14 @@ Students:
 - Anusri Sharma – PES1UG25CS803
 
 ## Project Overview
-This project implements a distributed log aggregation system using UDP socket programming for fast, connectionless communication suitable for real-time log transmission. Multiple clients generate log messages and send them over the network to a centralized aggregation server. The server receives logs, timestamps and orders them based on arrival time, and processes them in real time while supporting multiple concurrent clients.
+This project implements a distributed log aggregation system using UDP socket programming for fast, connectionless communication suitable for real-time log transmission. Multiple clients generate log messages and send them over the network to a centralized aggregation server. The server receives logs, timestamps them upon arrival and orders them accordingly, and processes them in real time while supporting multiple concurrent clients.
 
 The system also evaluates performance using throughput measurement (logs per second) and implements backpressure handling by limiting the log queue size to prevent memory overload. Since UDP is unreliable, some log messages may be lost or received out of order.
 
 ## Features
 - UDP Socket Communication – Low-level socket implementation
 - Connectionless Communication – No handshake required between client and server
-- Cryptographic Security – Logs can be encrypted before transmission and decrypted at the server  
+- Cryptographic Security – Logs are encrypted at the client and decrypted at the server using symmetric key cryptography  
 - Real-Time Log Streaming – Clients continuously send log data  
 - Multi-Client Support – Multiple clients can send logs simultaneously  
 - Time Ordering – Logs are ordered using timestamps generated at the server upon reception  
@@ -39,7 +39,8 @@ Example:
 ```1717578803.7720332 | WINDOWS_CLIENT | INFO | Log message 74```  
 
 Each log message is sent as a UDP datagram from the client to the server without establishing a connection, and without any guarantee of delivery or ordering.  
-Server receives and processes logs while maintaining time ordering based on timestamps generated at the server.
+Server receives and processes logs while maintaining time ordering based on timestamps generated at the server.  
+No retransmission or acknowledgment mechanism is implemented, making the system lightweight but unreliable.
 
 ## Installation & Setup
 Prerequisites:
@@ -124,7 +125,7 @@ To prevent memory overload:
 - Server log queue is limited to 100 logs
 - Old logs are automatically removed when the limit is exceeded
 
-This ensures stable performance even under heavy log traffic. This mechanism prevents unbounded memory growth during high log traffic.
+This ensures stable performance and prevents unbounded memory growth during high log traffic.
 
 ## Sample Output
 Example server output:
@@ -140,7 +141,8 @@ Each entry represents a log received as a UDP datagram from a client.
 ## Technologies Used
 Language: Python  
 Networking: UDP Sockets  
-Libraries: socket, time  
+Libraries: socket, time, cryptography  
+Cryptography: Fernet (symmetric encryption)  
 Operating Systems: Mac (Server), Windows/Ubuntu (Clients)
 
 ## Project Structure
@@ -166,12 +168,14 @@ Distributed-Log-Aggregation-System/
 ```
 
 ## Future Improvements
-Secure communication using DTLS (Datagram Transport Layer Security)  
+Secure communication using DTLS (Datagram Transport Layer Security) for UDP-based encrypted communication  
+Key management and secure key exchange mechanisms  
 Log storage in database  
 Log filtering and search functionality  
 Web dashboard for monitoring  
 Visualization of log statistics  
-Reliable delivery mechanisms (acknowledgment and retransmission)
+Reliable delivery mechanisms (acknowledgment and retransmission)  
+Load balancing for handling high-volume log traffic
 
 ## License
 This project is created for educational purposes as part of the Computer Networks mini project.
